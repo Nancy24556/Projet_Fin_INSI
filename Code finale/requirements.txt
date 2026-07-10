@@ -1,2 +1,0 @@
-pysnmp-lextudio>=6.0.0
-matplotlib>=3.4.0
