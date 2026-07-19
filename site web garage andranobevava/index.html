@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Andranobevava — Carrosserie, peinture & entretien automobile</title>
+<meta name="description" content="Garage d'Andranobevava : tôlerie, carrosserie, peinture, réparation plastique, lustrage, électricité auto, réparation radiateur, capitonnage et location de salle de peinture.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* =============================================
+   VARIABLES GLOBALES
+   ============================================= */
+:root {
+  --indigo:        #ffeb0f;
+  --indigo-fonce:  #18c3f3;
+  --indigo-vif:    #4bffc6;
+  --indigo-clair:  #EEEBFD;
+  --bleu-nuit:     #000000;
+  --lavande:       #F5F4FC;
+  --blanc:         #FFFFFF;
+  --gris-texte:    #09101d;
+  --gris-fonce:    #2B2D42;
+  --bordure:       #E7E5F5;
+  --ambre:         #f5c518;
+  --succes:        #16A34A;
+
+  --font-display: 'Sora', sans-serif;
+  --font-texte:   'Inter', sans-serif;
+
+  --espace-xs: 0.5rem;
+  --espace-sm: 1rem;
+  --espace-md: 2rem;
+  --espace-lg: 4rem;
+  --espace-xl: 6rem;
+
+  --rayon-sm: 12px;
+  --rayon: 20px;
+  --rayon-lg: 28px;
+  --ombre-douce: 0 8px 24px rgba(91, 79, 232, 0.08);
+  --ombre-carte: 0 4px 18px rgba(26, 27, 58, 0.06);
+
+  --verre-fond: rgba(255, 255, 255, 0.55);
+  --verre-fond-fonce: rgba(255, 255, 255, 0.12);
+  --verre-bordure: rgba(255, 255, 255, 0.6);
+  --verre-bordure-fonce: rgba(255, 255, 255, 0.25);
+  --verre-flou: 25px;
+  --verre-ombre: 0 8px 32px rgba(26, 27, 58, 0.08);
+
+  --transition: 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-texte);
+  color: var(--gris-fonce);
+  background: var(--lavande);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
+  top: -10%; right: -10%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, rgba(91,79,232,0.22), transparent 70%);
+  animation: deriveTache1 22s ease-in-out infinite;
+}
+body::after {
+  bottom: 0%; left: -15%;
+  width: 45vw; height: 45vw;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.12), transparent 70%);
+  animation: deriveTache2 26s ease-in-out infinite;
+}
+@keyframes deriveTache1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-3%, 4%) scale(1.08); }
+}
+@keyframes deriveTache2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4%, -3%) scale(1.06); }
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--bleu-nuit);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a:focus-visible, button:focus-visible { outline: 3px solid var(--indigo); outline-offset: 3px; }
+
+/* =============================================
+   UTILITAIRES
+   ============================================= */
+.conteneur {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: var(--espace-sm);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--indigo-fonce);
+  margin-bottom: var(--espace-xs);
+}
+
+.titre-section { font-size: clamp(1.7rem, 4.2vw, 2.4rem); margin-bottom: var(--espace-xs); text-align: center; }
+.sous-titre-section { color: var(--gris-texte); font-size: 1rem; max-width: 56ch; margin-inline: auto; margin-bottom: var(--espace-lg); text-align: center; }
+.entete-section { text-align: center; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  padding: 0.85em 1.6em;
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+
+.btn-primaire {
+  position: relative; overflow: hidden;
+  background: var(--indigo);
+  color: #000;
+  box-shadow: 0 10px 24px -8px rgba(255,235,15,0.5);
+}
+.btn-primaire::after {
+  content: '';
+  position: absolute; top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+}
+.btn-primaire:hover::after { left: 130%; }
+.btn-primaire:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -8px rgba(255,235,15,0.55); }
+
+.btn-blanc {
+  background: var(--verre-fond);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  color: var(--bleu-nuit);
+  border: 1.5px solid var(--verre-bordure);
+}
+.btn-blanc:hover { border-color: var(--indigo); color: var(--indigo-fonce); transform: translateY(-3px); }
+
+/* =============================================
+   HEADER
+   ============================================= */
+.header {
+  position: fixed;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 1100px;
+  z-index: 100;
+  background: rgba(200, 200, 200, 0.7);
+  backdrop-filter: blur(var(--verre-flou)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.2);
+  padding-block: 0.45rem;
+  border-radius: 99px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-interieur { display: flex; align-items: center; justify-content: space-between; gap: var(--espace-md); }
+
+.logo-zone { display: flex; align-items: center; gap: 0.9rem; margin-left: 18px; }
+.logo-icone {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--indigo), #8A7FFF);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.logo-icone img { width: 100%; height: 100%; object-fit: cover; }
+.logo-texte { font-family: var(--font-display); font-weight: 800; font-size: 0.98rem; color: var(--bleu-nuit); letter-spacing: -0.01em; line-height: 1.1; }
+.logo-texte .logo-sous { display: block; font-family: var(--font-texte); font-weight: 500; font-size: 0.62rem; color: var(--gris-texte); letter-spacing: 0.06em; text-transform: uppercase; }
+
+.nav-desktop { display: none; }
+.nav-desktop ul { display: flex; gap: 0.3rem; background: rgba(0,0,0,0.03); padding: 3px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.1); }
+.nav-desktop a { font-size: 0.82rem; font-weight: 600; color: var(--gris-fonce); padding: 0.4rem 1rem; border-radius: 99px; transition: background 0.25s ease, color 0.25s ease; }
+.nav-desktop a:hover { background: rgba(255,255,255,0.25); color: var(--indigo-fonce); }
+.nav-desktop a.actif { background: var(--indigo); color: #000; box-shadow: 0 2px 8px rgba(255,235,15,0.25); }
+
+.header-cta { display: none; margin-right: 18px; }
+.header-cta.desktop { border-radius: 99px; padding: 0.45rem 1.15rem; font-size: 0.82rem; }
+
+/* =============================================
+   BOTTOM NAV MOBILE
+   ============================================= */
+.nav-bas { display: none; }
+
+@media (max-width: 899px) {
+  body { padding-bottom: 72px; }
+  .nav-bas {
+    display: flex;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(91,79,232,0.1);
+    box-shadow: 0 -4px 24px rgba(26,27,58,0.1);
+    padding: 0.55rem 1rem 0.65rem;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+  .nav-bas-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    flex: 1; text-decoration: none; color: var(--gris-texte);
+    font-family: var(--font-display); font-size: 0.65rem; font-weight: 600;
+    padding: 0.3rem 0.5rem; border-radius: 12px;
+    transition: color 0.2s ease; -webkit-tap-highlight-color: transparent;
+  }
+  .nav-bas-item svg { width: 22px; height: 22px; stroke: currentColor; transition: transform 0.2s ease; }
+  .nav-bas-item:active svg { transform: scale(0.88); }
+  .nav-bas-item.actif { color: var(--indigo-fonce); }
+  .nav-bas-item.actif svg { stroke: var(--indigo-fonce); }
+  .nav-bas-cta {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    flex: 1; text-decoration: none;
+    font-family: var(--font-display); font-size: 0.65rem; font-weight: 700;
+    color: var(--blanc); -webkit-tap-highlight-color: transparent;
+  }
+  .nav-bas-cta .cta-bulle {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 18px -4px rgba(255,235,15,0.55);
+    transition: transform 0.2s ease;
+  }
+  .nav-bas-cta .cta-bulle svg { width: 20px; height: 20px; stroke: #000; }
+  .nav-bas-cta:active .cta-bulle { transform: scale(0.9); }
+  .nav-bas-cta .cta-label { color: var(--indigo-fonce); font-weight: 700; }
+}
+
+@media (min-width: 900px) {
+  .nav-desktop { display: block; }
+  .header-cta.desktop { display: inline-flex; }
+  .nav-bas { display: none; }
+  body { padding-bottom: 0; }
+}
+
+/* =============================================
+   HERO
+   ============================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden; isolation: isolate;
+}
+
+.hero-fond-photo { position: absolute; inset: 0; z-index: 0; }
+
+.hero-fond-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  transform: scale(1.08); will-change: transform;
+}
+
+.hero-fond-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, rgba(10,11,35,0.75) 0%, rgba(10,11,35,0.38) 60%, transparent 100%),
+    linear-gradient(to top, rgba(10,11,35,0.6) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.hero-orbe { position: absolute; border-radius: 50%; filter: blur(70px); z-index: 1; pointer-events: none; opacity: 0.2; mix-blend-mode: screen; }
+.hero-orbe-1 { width: 38vw; height: 38vw; top: -8%; left: 55%; background: radial-gradient(circle, rgba(138,127,255,0.5), transparent 70%); }
+.hero-orbe-2 { width: 30vw; height: 30vw; bottom: -10%; left: 5%; background: radial-gradient(circle, rgba(91,79,232,0.4), transparent 70%); }
+
+.hero-contenu { position: relative; z-index: 2; width: 100%; }
+
+.hero-grille {
+  display: grid; gap: 2.5rem; align-items: center;
+  padding-block: 8rem 3rem;
+}
+@media (min-width: 980px) {
+  .hero-grille { grid-template-columns: 1.05fr 0.95fr; padding-block: 0; gap: 1rem; min-height: 100vh; }
+}
+
+.hero-texte-direct { max-width: 580px; padding: clamp(1rem, 3vw, 2rem); }
+
+/* ── MOBILE : assurer visibilité texte hero sans GSAP ── */
+.hero-texte-direct [data-anim] {
+  opacity: 1;
+  transform: none;
+}
+
+.eyebrow-hero {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  font-family: var(--font-display); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  background: rgba(91,79,232,0.35); border: 1px solid rgba(138,127,255,0.5);
+  padding: 0.45em 0.95em 0.45em 0.7em; border-radius: 100px;
+  margin-bottom: 1.3rem; backdrop-filter: blur(8px);
+}
+.eyebrow-hero .point {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--indigo-vif); box-shadow: 0 0 0 3px rgba(75,255,198,0.3);
+  animation: pulserPoint 2s ease-in-out infinite;
+}
+@keyframes pulserPoint { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+.hero-titre {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.06;
+  color: var(--blanc); margin-bottom: 1.1rem;
+  letter-spacing: -0.02em; text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.hero-titre .accent {
+  background: linear-gradient(100deg, #f8ff9b 20%, #6ec0ff 50%, #9bffd2 80%);
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: lueurAccent 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(110,218,255,0.4));
+}
+@keyframes lueurAccent { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+
+.hero-sous-texte { color: rgba(255,255,255,0.82); font-size: 1.06rem; line-height: 1.65; margin-bottom: 1.6rem; max-width: 46ch; text-shadow: 0 1px 8px rgba(0,0,0,0.25); }
+
+.tags-services { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.8rem; }
+.tag-service {
+  font-size: 0.78rem; font-weight: 600;
+  color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 0.42em 0.85em; border-radius: 100px; backdrop-filter: blur(6px);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease;
+}
+.tag-service:hover { transform: translateY(-3px); background: rgba(255,255,255,0.2); }
+
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.8rem; }
+
+.btn-primaire-glass {
+  position: relative; display: inline-flex; align-items: center; gap: 0.6em;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce));
+  color: #000; font-family: var(--font-display); font-weight: 700; font-size: 0.92rem;
+  padding: 0.95em 1.7em; border-radius: 100px; border: none; cursor: pointer;
+  box-shadow: 0 14px 30px -10px rgba(255,235,15,0.55); overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+}
+.btn-primaire-glass::after {
+  content: ''; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg); transition: left 0.65s ease;
+}
+.btn-primaire-glass:hover::after { left: 130%; }
+.btn-primaire-glass:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 38px -10px rgba(255,235,15,0.65); }
+.btn-primaire-glass svg { width: 18px; height: 18px; transition: transform 0.35s ease; }
+.btn-primaire-glass:hover svg { transform: translateX(3px); }
+
+.lien-secondaire {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.88rem;
+  color: rgba(255,255,255,0.88); padding-bottom: 2px;
+  border-bottom: 1.5px solid rgba(255,255,255,0.35);
+  transition: border-color 0.3s ease, color 0.3s ease, gap 0.3s ease;
+}
+.lien-secondaire:hover { border-color: rgba(255,255,255,0.8); color: var(--blanc); gap: 0.75em; }
+.lien-secondaire svg { width: 15px; height: 15px; }
+
+.promo-flottante {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: linear-gradient(135deg, rgba(20,21,46,0.85), rgba(58,30,90,0.85));
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 14px;
+  padding: 0.6rem 0.95rem; box-shadow: 0 12px 28px -8px rgba(20,21,46,0.5);
+}
+.promo-flottante .icone-promo {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.promo-flottante .icone-promo svg { width: 14px; height: 14px; }
+.promo-flottante strong { font-family: var(--font-display); font-size: 0.76rem; color: var(--blanc); }
+.promo-flottante span { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
+.promo-flottante .code {
+  display: inline-flex; align-items: center; gap: 0.3em;
+  background: var(--indigo-vif); color: #000;
+  padding: 0.15em 0.6em; border-radius: 6px;
+  font-weight: 700; font-family: var(--font-display); font-size: 0.72rem;
+  margin-left: 0.25em;
+}
+
+/* ── CARTES STATS HERO — VISIBLES MOBILE ── */
+.colonne-visuelle {
+  position: relative;
+  display: flex; flex-direction: column; gap: 1.1rem;
+  padding: 0 1rem 1rem;
+}
+.carte-double { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+
+.carte-stat-flottante {
+  display: flex; align-items: center; gap: 0.9rem;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;
+  padding: 1.1rem 1.3rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.15);
+  will-change: transform;
+}
+.carte-stat-flottante .icone {
+  width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-vif));
+  display: flex; align-items: center; justify-content: center;
+}
+.carte-stat-flottante .icone svg { width: 22px; height: 22px; }
+.carte-stat-flottante strong { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; color: var(--blanc); line-height: 1.1; }
+.carte-stat-flottante span { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+
+.scroll-indicateur {
+  position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  z-index: 2; background: rgba(255,255,255,0.1); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.2); padding: 0.7rem 1rem 0.85rem; border-radius: 16px;
+}
+.scroll-indicateur span { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-display); font-weight: 600; color: rgba(255,255,255,0.75); }
+.scroll-indicateur .trait { width: 1px; height: 28px; background: linear-gradient(180deg, rgba(255,255,255,0.7), transparent); animation: descendreTrait 1.8s ease-in-out infinite; }
+@keyframes descendreTrait {
+  0% { opacity:0; transform: scaleY(0); transform-origin: top; }
+  50% { opacity:1; transform: scaleY(1); transform-origin: top; }
+  100% { opacity:0; transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* ── MOBILE : hero layout ── */
+@media (max-width: 979px) {
+  .hero-grille {
+    padding-block: 5rem 2rem;
+    grid-template-columns: 1fr;
+  }
+  /* Cartes visibles sur mobile */
+  .colonne-visuelle {
+    display: flex;
+  }
+  .hero-texte-direct {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  .hero-titre { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .btn-primaire-glass { width: 100%; justify-content: center; }
+  .scroll-indicateur { display: none; }
+
+  /* cartes plus compactes sur mobile */
+  .carte-stat-flottante {
+    padding: 0.85rem 1rem;
+  }
+  .carte-stat-flottante strong { font-size: 1.2rem; }
+  .carte-stat-flottante .icone { width: 38px; height: 38px; }
+}
+
+/* =============================================
+   SERVICES
+   ============================================= */
+.services { padding-block: var(--espace-xl); background: var(--lavande); }
+.grille-services { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+
+.carte-service {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure); border-radius: var(--rayon);
+  padding: 1.5rem 1.4rem; display: flex; align-items: center; gap: 1rem;
+  box-shadow: var(--verre-ombre); position: relative; overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.carte-service::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  transform: translateX(-160%); pointer-events: none;
+  transition: transform 0.85s ease; z-index: 5;
+}
+.carte-service:hover::before { transform: translateX(160%); }
+.carte-service:hover { transform: translateY(-6px); box-shadow: var(--ombre-douce); }
+
+.carte-service-icone {
+  width: 50px; height: 50px; border-radius: 13px;
+  background: var(--indigo-clair); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background var(--transition), transform var(--transition);
+}
+.carte-service-icone svg { width: 24px; height: 24px; }
+.carte-service:hover .carte-service-icone { transform: scale(1.08) rotate(-4deg); }
+.carte-service h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+.carte-service p { color: var(--gris-texte); font-size: 0.85rem; }
+
+.carte-service.mise-en-avant {
+  position: relative;
+  background: linear-gradient(135deg, rgba(91,79,232,0.88), rgba(122,111,240,0.88));
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.3); color: var(--blanc);
+  animation: respirationCarte 4.5s ease-in-out infinite;
+}
+@keyframes respirationCarte {
+  0%, 100% { box-shadow: var(--verre-ombre), 0 0 0 0 rgba(91,79,232,0); }
+  50% { box-shadow: var(--verre-ombre), 0 0 0 10px rgba(91,79,232,0.06); }
+}
+.carte-service.mise-en-avant .carte-service-icone { background: rgba(255,255,255,0.18); }
+.carte-service.mise-en-avant h3 { color: var(--blanc); }
+.carte-service.mise-en-avant p { color: rgba(255,255,255,0.78); }
+.carte-service.mise-en-avant .fleche {
+  margin-left: auto; width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: transform var(--transition), background var(--transition);
+}
+.carte-service.mise-en-avant .fleche svg { width: 16px; height: 16px; }
+.carte-service.mise-en-avant:hover .fleche { background: var(--blanc); transform: translateX(4px); }
+
+@media (min-width: 640px) { .grille-services { grid-template-columns: repeat(2, 1fr); } .carte-service.mise-en-avant { grid-column: 1 / -1; } }
+@media (min-width: 980px) { .grille-services { grid-template-columns: repeat(3, 1fr); } }
+
+/* =============================================
+   REALISATIONS
+   ============================================= */
+.realisations { padding-block: var(--espace-xl); background: var(--blanc); }
+
+.filtres-galerie { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: var(--espace-md); }
+.filtre-btn {
+  padding: 0.55em 1.2em; border-radius: 100px;
+  border: 1.5px solid var(--bordure); background: var(--blanc);
+  color: var(--gris-texte); font-size: 0.85rem; font-weight: 600;
+  font-family: var(--font-texte); cursor: pointer;
+  transition: all var(--transition);
+}
+.filtre-btn:hover { border-color: var(--indigo-fonce); color: var(--indigo-fonce); }
+.filtre-btn.actif { background: var(--indigo); border-color: var(--indigo); color: #000; }
+
+.grille-galerie { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+.paire-realisation {
+  border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre-carte);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--bordure);
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.paire-realisation:hover { box-shadow: 0 12px 32px rgba(91,79,232,0.15); transform: translateY(-4px); }
+.paire-realisation.cachee { display: none; }
+
+.realisation-photo { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--lavande); }
+.realisation-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,1,0.5,1); }
+.paire-realisation:hover .realisation-photo img { transform: scale(1.07); }
+.realisation-etiquette {
+  position: absolute; bottom: 0.6rem; left: 0.6rem;
+  padding: 0.3em 0.8em; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; font-family: var(--font-display); letter-spacing: 0.02em;
+}
+.realisation-etiquette.avant { background: rgba(26,27,58,0.85); color: var(--blanc); }
+.realisation-etiquette.apres { background: var(--indigo); color: #000; }
+
+.realisation-badge {
+  position: absolute; top: 0.6rem; right: 0.6rem;
+  padding: 0.2em 0.7em; border-radius: 100px;
+  font-size: 0.65rem; font-weight: 700; font-family: var(--font-display);
+  background: rgba(91,79,232,0.85); color: #fff; backdrop-filter: blur(6px);
+}
+
+.galerie-pied { text-align: center; margin-top: var(--espace-lg); }
+
+@media (min-width: 700px) { .grille-galerie { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .grille-galerie { grid-template-columns: repeat(3, 1fr); } }
+
+/* =============================================
+   BANDE CHIFFRES CLÉS
+   ============================================= */
+.bande-chiffres {
+  background: linear-gradient(135deg, #0a0b23, #1a1b3a);
+  padding-block: var(--espace-lg);
+  overflow: hidden; position: relative;
+}
+.bande-chiffres::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(91,79,232,0.3), transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(24,195,243,0.2), transparent 60%);
+}
+.bande-chiffres-grille {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+  position: relative; z-index: 1;
+}
+@media (min-width: 640px) { .bande-chiffres-grille { grid-template-columns: repeat(4, 1fr); } }
+
+.chiffre-item { text-align: center; }
+.chiffre-valeur {
+  display: block; font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-vif));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 0.4rem;
+}
+.chiffre-label { font-size: 0.85rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+
+/* =============================================
+   A PROPOS
+   ============================================= */
+.apropos { padding-block: var(--espace-xl); background: var(--lavande); }
+
+.apropos-grille { display: grid; gap: var(--espace-md); align-items: center; margin-bottom: var(--espace-md); }
+@media (min-width: 940px) { .apropos-grille { grid-template-columns: 0.95fr 1.05fr; } }
+
+.apropos-image {
+  border-radius: var(--rayon-lg); overflow: hidden;
+  aspect-ratio: 5/4; box-shadow: var(--ombre-carte);
+  position: relative;
+}
+.apropos-image img { width: 100%; height: 100%; object-fit: cover; }
+.apropos-image-badge {
+  position: absolute; bottom: 1.2rem; left: 1.2rem;
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+  border-radius: 12px; padding: 0.6rem 0.9rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.apropos-image-badge .badge-icone {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--indigo); display: flex; align-items: center; justify-content: center;
+}
+.apropos-image-badge .badge-icone svg { width: 16px; height: 16px; }
+.apropos-image-badge strong { font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; color: var(--bleu-nuit); }
+.apropos-image-badge span { font-size: 0.72rem; color: var(--gris-texte); }
+
+.apropos-texte .eyebrow { color: var(--indigo-fonce); }
+.apropos-texte .titre-section { text-align: left; font-size: clamp(1.5rem, 3.6vw, 2rem); }
+.apropos-texte p.description { color: var(--gris-texte); font-size: 0.95rem; margin-bottom: var(--espace-md); max-width: 52ch; }
+
+.apropos-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-bottom: var(--espace-lg); }
+@media (min-width: 560px) { .apropos-stats { grid-template-columns: repeat(4, 1fr); } }
+
+.stat-carte {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure);
+  border-radius: var(--rayon-sm); padding: 1.2rem 1rem; text-align: center;
+  box-shadow: var(--verre-ombre); position: relative; overflow: hidden;
+  transition: transform var(--transition);
+}
+.stat-carte::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  transform: translateX(-160%); pointer-events: none; transition: transform 0.85s ease;
+}
+.stat-carte:hover::before { transform: translateX(160%); }
+.stat-carte:hover { transform: translateY(-4px); }
+.stat-carte strong { display: block; font-family: var(--font-display); font-size: 1.7rem; color: var(--indigo-fonce); }
+.stat-carte span { font-size: 0.78rem; color: var(--gris-texte); }
+
+/* ── TIMELINE ── */
+.apropos-histoire { padding-block: var(--espace-lg); }
+.apropos-histoire .entete-section { margin-bottom: var(--espace-md); }
+
+.timeline { position: relative; max-width: 800px; margin-inline: auto; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--indigo), var(--indigo-fonce), transparent);
+  transform: translateX(-50%);
+}
+@media (max-width: 639px) { .timeline::before { left: 22px; } }
+
+.timeline-item {
+  display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; align-items: start;
+  margin-bottom: 2.5rem; position: relative;
+}
+@media (max-width: 639px) { .timeline-item { grid-template-columns: 60px 1fr; } }
+
+.timeline-annee {
+  font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+  color: var(--indigo-fonce); text-align: right; padding-right: 1.5rem; padding-top: 0.8rem;
+}
+@media (max-width: 639px) { .timeline-annee { display: none; } }
+
+.timeline-point {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem; z-index: 1;
+}
+.timeline-point .cercle {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 4px rgba(255,235,15,0.2), 0 4px 12px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+.timeline-point .cercle svg { width: 18px; height: 18px; }
+.timeline-annee-mobile {
+  display: none; font-family: var(--font-display); font-weight: 800; font-size: 0.75rem; color: var(--indigo-fonce);
+}
+@media (max-width: 639px) { .timeline-annee-mobile { display: block; } }
+
+.timeline-contenu {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure);
+  border-radius: var(--rayon); padding: 1.1rem 1.3rem;
+  box-shadow: var(--verre-ombre); margin-left: 1.5rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.timeline-contenu:hover { transform: translateX(4px); box-shadow: var(--ombre-douce); }
+.timeline-item:nth-child(odd) .timeline-contenu { margin-left: 1.5rem; margin-right: 0; }
+.timeline-item:nth-child(even) .timeline-annee { text-align: left; padding-left: 1.5rem; padding-right: 0; order: 3; }
+.timeline-item:nth-child(even) .timeline-point { order: 2; }
+.timeline-item:nth-child(even) .timeline-contenu { order: 1; margin-right: 1.5rem; margin-left: 0; text-align: right; }
+@media (max-width: 639px) {
+  .timeline-item { grid-template-columns: 60px 1fr; }
+  .timeline-item:nth-child(even) .timeline-annee { display: none; }
+  .timeline-item:nth-child(even) .timeline-contenu { order: 3; margin-right: 0; margin-left: 1rem; text-align: left; }
+  .timeline-item:nth-child(even) .timeline-point { order: 1; }
+  .timeline-contenu { margin-left: 1rem; }
+}
+.timeline-contenu h4 { font-size: 0.95rem; margin-bottom: 0.25rem; }
+.timeline-contenu p { font-size: 0.83rem; color: var(--gris-texte); }
+
+/* ── EQUIPE ── */
+.equipe-section { padding-block: var(--espace-lg); background: var(--blanc); }
+.grille-equipe { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .grille-equipe { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .grille-equipe { grid-template-columns: repeat(4, 1fr); } }
+
+.carte-membre {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure); border-radius: var(--rayon);
+  padding: 1.5rem 1rem; text-align: center;
+  box-shadow: var(--verre-ombre);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.carte-membre:hover { transform: translateY(-8px); box-shadow: var(--ombre-douce); }
+
+.membre-avatar {
+  width: 80px; height: 80px; border-radius: 50%; margin-inline: auto; margin-bottom: 0.9rem;
+  overflow: hidden; border: 3px solid var(--indigo);
+  box-shadow: 0 0 0 4px rgba(255,235,15,0.2);
+}
+.membre-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.membre-avatar.initiales {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce));
+  font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; color: #000;
+}
+.carte-membre h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+.carte-membre .role { font-size: 0.78rem; color: var(--indigo-fonce); font-weight: 600; margin-bottom: 0.5rem; }
+.carte-membre p { font-size: 0.8rem; color: var(--gris-texte); }
+
+/* ── VALEURS ── */
+.valeurs-section { padding-block: var(--espace-xl); background: var(--lavande); }
+.grille-valeurs { display: grid; gap: 1.2rem; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .grille-valeurs { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .grille-valeurs { grid-template-columns: repeat(3, 1fr); } }
+
+.carte-valeur {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure); border-radius: var(--rayon);
+  padding: 1.8rem 1.4rem; position: relative; overflow: hidden;
+  box-shadow: var(--verre-ombre);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.carte-valeur:hover { transform: translateY(-6px); box-shadow: var(--ombre-douce); }
+.carte-valeur .numero {
+  font-family: var(--font-display); font-weight: 800; font-size: 3.5rem;
+  color: rgba(91,79,232,0.08); position: absolute; top: 0.5rem; right: 1rem;
+  line-height: 1; user-select: none; pointer-events: none;
+}
+.valeur-icone {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce));
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+  box-shadow: 0 8px 20px -6px rgba(255,235,15,0.4);
+}
+.valeur-icone svg { width: 24px; height: 24px; }
+.carte-valeur h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.carte-valeur p { font-size: 0.85rem; color: var(--gris-texte); }
+
+/* =============================================
+   TEMOIGNAGES
+   ============================================= */
+.temoignages { padding-block: var(--espace-xl); background: var(--blanc); }
+.grille-temoignages { display: grid; gap: 1.1rem; grid-template-columns: 1fr; margin-bottom: var(--espace-md); }
+@media (min-width: 700px) { .grille-temoignages { grid-template-columns: repeat(3, 1fr); } }
+
+.carte-temoignage {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure); border-radius: var(--rayon); padding: 1.6rem;
+  box-shadow: var(--verre-ombre); position: relative; overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.carte-temoignage::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  transform: translateX(-160%); pointer-events: none; transition: transform 0.85s ease;
+}
+.carte-temoignage:hover::before { transform: translateX(160%); }
+.carte-temoignage:hover { transform: translateY(-5px); box-shadow: var(--ombre-douce); }
+
+.etoiles { display: flex; gap: 0.15rem; margin-bottom: 0.8rem; }
+.etoiles svg { width: 15px; height: 15px; }
+.carte-temoignage p.texte-avis { font-size: 0.92rem; color: var(--gris-fonce); margin-bottom: 1.1rem; font-style: italic; }
+.temoignage-auteur { display: flex; align-items: center; gap: 0.65rem; }
+.temoignage-avatar {
+  width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--indigo), var(--indigo-fonce)); color: #000;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem; flex-shrink: 0;
+}
+.temoignage-auteur strong { font-size: 0.88rem; color: var(--bleu-nuit); }
+.temoignages-pied { text-align: center; }
+
+/* =============================================
+   CONTACT
+   ============================================= */
+.contact { padding-block: var(--espace-xl); background: var(--lavande); }
+
+.contact-grille-simple {
+  display: grid; gap: var(--espace-md);
+}
+@media (min-width: 940px) { .contact-grille-simple { grid-template-columns: 1fr 1.3fr; align-items: start; } }
+
+.contact-carte-bloc {
+  background: var(--verre-fond);
+  backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--verre-flou)) saturate(160%);
+  border: 1px solid var(--verre-bordure); border-radius: var(--rayon-lg); padding: 1.8rem;
+  box-shadow: var(--verre-ombre);
+}
+.contact-carte-bloc h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+.contact-carte-bloc > p.intro { color: var(--gris-texte); font-size: 0.88rem; margin-bottom: 1.3rem; }
+
+.contact-infos { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.4rem; }
+.info-item { display: flex; gap: 0.8rem; align-items: flex-start; }
+.info-icone { width: 38px; height: 38px; border-radius: 10px; background: var(--indigo-clair); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.info-icone svg { width: 18px; height: 18px; }
+.info-item strong { display: block; font-size: 0.86rem; color: var(--bleu-nuit); }
+.info-item p, .info-item a { font-size: 0.84rem; color: var(--gris-texte); }
+.info-item a:hover { color: var(--indigo-fonce); }
+
+/* ── CARTE — iframe Leaflet-style ── */
+.contact-map { border-radius: var(--rayon-sm); overflow: hidden; aspect-ratio: 16/10; border: 1px solid var(--bordure); }
+.contact-map iframe { width: 100%; height: 100%; border: 0; }
+
+/* ── CTA WhatsApp ── */
+.whatsapp-cta-bloc {
+  background: linear-gradient(135deg, rgba(37,211,102,0.12), rgba(37,211,102,0.05));
+  border: 1.5px solid rgba(37,211,102,0.3); border-radius: var(--rayon);
+  padding: 1.2rem 1.4rem; display: flex; align-items: center; gap: 1rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.whatsapp-cta-bloc:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(37,211,102,0.15); }
+.whatsapp-icone { width: 48px; height: 48px; border-radius: 14px; background: #25d366; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.whatsapp-icone svg { width: 26px; height: 26px; }
+.whatsapp-cta-bloc strong { font-family: var(--font-display); font-size: 1rem; color: var(--bleu-nuit); }
+.whatsapp-cta-bloc span { font-size: 0.82rem; color: var(--gris-texte); }
+
+.horaires-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; }
+.horaire-jour {
+  background: rgba(255,255,255,0.6); border-radius: 10px; padding: 0.6rem 0.8rem;
+  font-size: 0.8rem;
+}
+.horaire-jour .jour { font-weight: 700; color: var(--bleu-nuit); font-size: 0.75rem; }
+.horaire-jour .heure { color: var(--indigo-fonce); font-weight: 600; }
+.horaire-jour.ferme .heure { color: #e74c3c; }
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.footer { background: var(--bleu-nuit); padding-block: var(--espace-lg) var(--espace-md); }
+.footer-haut { display: grid; gap: var(--espace-md); padding-bottom: var(--espace-md); border-bottom: 1px solid rgba(255,255,255,0.1); }
+@media (min-width: 760px) { .footer-haut { grid-template-columns: 1.4fr repeat(3, 1fr); } }
+
+.footer-marque .logo-zone { margin-bottom: 0.8rem; margin-left: 0; }
+.footer-marque .logo-texte { color: var(--blanc); }
+.footer-marque .logo-sous { color: rgba(255,255,255,0.5); }
+.footer-marque p { font-size: 0.86rem; color: rgba(255,255,255,0.55); max-width: 36ch; }
+
+.footer-social { display: flex; gap: 0.7rem; margin-top: 0.9rem; }
+.footer-social a {
+  width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition), transform var(--transition);
+}
+.footer-social a:hover { background: var(--indigo); transform: translateY(-3px); }
+.footer-social svg { width: 16px; height: 16px; }
+
+.footer-colonne h4 { color: var(--blanc); font-size: 0.9rem; margin-bottom: 0.9rem; }
+.footer-colonne ul { display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-colonne a { font-size: 0.84rem; color: rgba(255,255,255,0.55); transition: color var(--transition); }
+.footer-colonne a:hover { color: var(--blanc); }
+
+.footer-bas { padding-top: var(--espace-md); display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+@media (min-width: 760px) { .footer-bas { flex-direction: row; justify-content: space-between; } }
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── WhatsApp flottant ── */
+.btn-whatsapp-float {
+  display: none;
+  position: fixed; bottom: 90px; right: 16px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #25d366; color: #fff;
+  align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+  z-index: 99; transition: transform 0.3s ease;
+  border: none; cursor: pointer;
+  animation: pulseWA 2.5s infinite;
+}
+.btn-whatsapp-float:hover { transform: scale(1.12); }
+.btn-whatsapp-float svg { width: 26px; height: 26px; }
+@media (max-width: 899px) { .btn-whatsapp-float { display: flex; } }
+
+@keyframes pulseWA {
+  0% { box-shadow: 0 6px 20px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.4); }
+  70% { box-shadow: 0 6px 20px rgba(37,211,102,0.45), 0 0 0 12px rgba(37,211,102,0); }
+  100% { box-shadow: 0 6px 20px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* ── Corrections responsive ── */
+@media (max-width: 767px) {
+  [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .services, .realisations, .apropos, .temoignages, .contact { padding-block: 3.5rem; }
+  .sous-titre-section { margin-bottom: 2rem; }
+  .grille-services { gap: 0.75rem; }
+  .carte-service { padding: 1.1rem 1rem; }
+  .filtres-galerie { gap: 0.4rem; }
+  .filtre-btn { padding: 0.45em 0.9em; font-size: 0.78rem; }
+  .timeline::before { left: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="conteneur header-interieur">
+    <a href="#accueil" class="logo-zone">
+      <span class="logo-icone">
+        <img src="fond.jpg.jpg" alt="Logo Garage D'Andranobevava">
+      </span>
+      <span class="logo-texte">
+        Garage D'Andranobevava
+        <span class="logo-sous">Carrosserie & peinture</span>
+      </span>
+    </a>
+    <nav class="nav-desktop" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#accueil" class="actif">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#realisations">Galerie</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="btn btn-primaire header-cta desktop">Devis gratuit</a>
+  </div>
+</header>
+
+<!-- BOTTOM NAV MOBILE -->
+<nav class="nav-bas" aria-label="Navigation mobile">
+  <a href="#accueil" class="nav-bas-item actif" data-section="accueil">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3L21 12V20C21 20.6 20.6 21 20 21H15V16H9V21H4C3.4 21 3 20.6 3 20V12Z"/></svg>
+    Accueil
+  </a>
+  <a href="#services" class="nav-bas-item" data-section="services">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+    Services
+  </a>
+  <a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener" class="nav-bas-cta">
+    <span class="cta-bulle">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z"/></svg>
+    </span>
+    <span class="cta-label">WhatsApp</span>
+  </a>
+  <a href="#apropos" class="nav-bas-item" data-section="apropos">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20C4 17.8 7.6 16 12 16C16.4 16 20 17.8 20 20"/></svg>
+    À propos
+  </a>
+  <a href="#realisations" class="nav-bas-item" data-section="realisations">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9H21M9 21V9"/></svg>
+    Galerie
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-fond-photo">
+    <img src="fond1.jpg.jpg" alt="Véhicule premium pris en charge par Garage Andranobevava">
+  </div>
+  <div class="hero-orbe hero-orbe-1"></div>
+  <div class="hero-orbe hero-orbe-2"></div>
+
+  <div class="conteneur hero-contenu">
+    <div class="hero-grille">
+      <!-- Texte -->
+      <div class="hero-texte-direct" id="heroTexte">
+        <div class="eyebrow-hero" data-anim>
+          <span class="point"></span> Garage D'Andranobevava premium · Antananarivo
+        </div>
+        <h1 class="hero-titre" data-anim>
+          Votre voiture<br>entre de <span class="accent">bonnes mains</span>
+        </h1>
+        <p class="hero-sous-texte" data-anim>
+          Choc, rayure, bosse, décoloration ? On redonne l'éclat à votre véhicule. Une équipe qualifiée, un travail garanti, pour un résultat à la hauteur de votre attente.
+        </p>
+        <div class="tags-services" data-anim>
+          <span class="tag-service">Tôlerie</span>
+          <span class="tag-service">Carrosserie</span>
+          <span class="tag-service">Peinture</span>
+          <span class="tag-service">Lustrage</span>
+          <span class="tag-service">Électricité auto</span>
+          <span class="tag-service">Capitonnage</span>
+        </div>
+        <div class="hero-actions" data-anim>
+          <a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener" class="btn-primaire-glass">
+            Devis sur WhatsApp
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#services" class="lien-secondaire">
+            Voir nos services
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="promo-flottante" data-anim>
+          <span class="icone-promo">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 12V8H6.5A2.5 2.5 0 004 10.5V10.5A2.5 2.5 0 006.5 13H18a2 2 0 012 2v3a2 2 0 01-2 2H4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <strong>Code promo <span class="code">HILOKO</span></strong>
+            <span>Devis gratuit sous 24h</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cartes stats — visibles mobile ET desktop -->
+      <div class="colonne-visuelle">
+        <div class="carte-double">
+          <div class="carte-stat-flottante" data-anim data-depth="1.4">
+            <span class="icone"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 12V6L12 2Z" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            <div><strong>+10 ans</strong><span>d'expérience</span></div>
+          </div>
+          <div class="carte-stat-flottante" data-anim data-depth="2.2">
+            <span class="icone"><svg viewBox="0 0 24 24" fill="none"><path d="M9 12L11 14L15 10" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#000" stroke-width="1.8"/></svg></span>
+            <div><strong>100%</strong><span>garanti</span></div>
+          </div>
+        </div>
+        <div class="carte-stat-flottante" data-anim data-depth="1.8">
+          <span class="icone"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="#000" stroke-width="1.8"/><path d="M3 20C3 16.5 5.5 14 9 14C12.5 14 15 16.5 15 20" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><path d="M15 8C15 9.5 14.3 10.8 13.2 11.6M17 20C17 17.2 15.8 14.9 14 13.6" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <div><strong>+2 500</strong><span>véhicules pris en charge</span></div>
+        </div>
+        <div class="carte-stat-flottante" data-anim data-depth="2.6">
+          <span class="icone"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#000" stroke-width="1.8"/><path d="M7 21V13H17V21" stroke="#000" stroke-width="1.8"/></svg></span>
+          <div><strong>Cabine équipée</strong><span>location de salle de peinture</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicateur"><span>Découvrir</span><div class="trait"></div></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Nos services</p>
+      <h2 class="titre-section" data-aos="fade-up" data-aos-delay="80">Des prestations complètes pour redonner vie à votre véhicule</h2>
+    </div>
+    <div class="grille-services">
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="0">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M3 16L5 8H19L21 16M7 16V19M17 16V19M3 16H21" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><h3>Carrosserie</h3><p>Réparation complète de carrosserie</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="40">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13L6 7H18L20 13M4 13V18H6V16H18V18H20V13M4 13H20" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><h3>Tôlerie</h3><p>Redressage et remise en forme de la tôle</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="80">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21L9 15M9 15L19 5C20 4 20 3 19 2C18 1 17 1 16 2L6 12L3 21Z" stroke="#5B4FE8" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 4L17 7" stroke="#5B4FE8" stroke-width="1.8"/></svg></span>
+        <div><h3>Peinture</h3><p>Peinture complète et retouches précises</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="120">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#5B4FE8" stroke-width="1.8"/><path d="M9 9C9.5 8 10.5 7.5 12 7.5C14 7.5 15 9 15 10.5" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><h3>Lustrage</h3><p>Protection et brillance haute qualité</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="160">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3C9 3 7 6 7 9C7 11 8.5 12 8.5 14C8.5 16 7 17 7 19C7 20 8 21 9 21H15C16 21 17 20 17 19C17 17 15.5 16 15.5 14C15.5 12 17 11 17 9C17 6 15 3 15 3" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><h3>Réparation plastique</h3><p>Pare-chocs et éléments plastiques</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="200">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" stroke="#5B4FE8" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <div><h3>Électricité auto</h3><p>Diagnostic complet et réparation électrique</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="240">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="2" stroke="#5B4FE8" stroke-width="1.8"/><path d="M9 8H15M9 12H15M9 16H12" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><h3>Réparation radiateur</h3><p>Nettoyage, réparation et remplacement</p></div>
+      </div>
+      <div class="carte-service" data-aos="fade-up" data-aos-delay="0">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18V8C4 6.9 4.9 6 6 6H18C19.1 6 20 6.9 20 8V18" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 18H22" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round"/><path d="M8 10H16" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><h3>Capitonnage</h3><p>Sièges, intérieur et habillage complet</p></div>
+      </div>
+      <div class="carte-service mise-en-avant" data-aos="fade-up" data-aos-delay="80">
+        <span class="carte-service-icone"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M7 21V13H17V21" stroke="#fff" stroke-width="1.8"/><path d="M7 8H8M11 8H12M15 8H16" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div>
+          <h3>Location de salle de peinture</h3>
+          <p>Cabine équipée disponible à la location pour vos travaux de peinture professionnels</p>
+        </div>
+        <span class="fleche">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANDE CHIFFRES -->
+<div class="bande-chiffres">
+  <div class="conteneur">
+    <div class="bande-chiffres-grille">
+      <div class="chiffre-item" data-aos="fade-up" data-aos-delay="0">
+        <span class="chiffre-valeur stat-nombre" data-cible="10" data-prefixe="+" data-suffixe=" ans">0</span>
+        <span class="chiffre-label">d'expérience dans la carrosserie</span>
+      </div>
+      <div class="chiffre-item" data-aos="fade-up" data-aos-delay="80">
+        <span class="chiffre-valeur stat-nombre" data-cible="2500" data-prefixe="+">0</span>
+        <span class="chiffre-label">véhicules réparés avec soin</span>
+      </div>
+      <div class="chiffre-item" data-aos="fade-up" data-aos-delay="160">
+        <span class="chiffre-valeur stat-nombre" data-cible="1000" data-prefixe="+">0</span>
+        <span class="chiffre-label">clients satisfaits et fidèles</span>
+      </div>
+      <div class="chiffre-item" data-aos="fade-up" data-aos-delay="240">
+        <span class="chiffre-valeur stat-nombre" data-cible="100" data-suffixe="%">0</span>
+        <span class="chiffre-label">travail garanti, qualité assurée</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REALISATIONS -->
+<section class="realisations" id="realisations">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Nos réalisations</p>
+      <h2 class="titre-section" data-aos="fade-up" data-aos-delay="80">Avant / Après</h2>
+      <p class="sous-titre-section" data-aos="fade-up" data-aos-delay="140">Un aperçu de véhicules pris en charge récemment dans notre atelier à Andranobevava.</p>
+    </div>
+    <div class="filtres-galerie" data-aos="fade-up">
+      <button class="filtre-btn actif" data-filtre="tous">Tous</button>
+      <button class="filtre-btn" data-filtre="carrosserie">Carrosserie</button>
+      <button class="filtre-btn" data-filtre="peinture">Peinture</button>
+      <button class="filtre-btn" data-filtre="lustrage">Lustrage</button>
+      <button class="filtre-btn" data-filtre="tolerie">Tôlerie</button>
+      <button class="filtre-btn" data-filtre="autre">Autre</button>
+    </div>
+    <div class="grille-galerie" id="grilleGalerie">
+      <div class="paire-realisation" data-categorie="carrosserie" data-aos="fade-up">
+        <div class="realisation-photo"><img src="fonds3.jpg.jpg" alt="Avant carrosserie 1"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond3.jpg.jpeg" alt="Après carrosserie 1"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Carrosserie</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="peinture" data-aos="fade-up" data-aos-delay="60">
+        <div class="realisation-photo"><img src="fond4s.jpg.jpeg" alt="Avant peinture 1"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond4.jpg.jpeg" alt="Après peinture 1"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Peinture</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="tolerie" data-aos="fade-up" data-aos-delay="120">
+        <div class="realisation-photo"><img src="fond6s.jpg.jpeg" alt="Avant tôlerie 1"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond6.jpg.jpeg" alt="Après tôlerie 1"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Tôlerie</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="lustrage" data-aos="fade-up">
+        <div class="realisation-photo"><img src="fond11.jpg.jpg" alt="Avant lustrage 1"><span class="realisation-etiquette avant"></span></div>
+        <div class="realisation-photo"><img src="fond12.jpg.jpg" alt="Après lustrage 1"><span class="realisation-etiquette apres"></span><span class="realisation-badge">Lustrage</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="carrosserie" data-aos="fade-up" data-aos-delay="60">
+        <div class="realisation-photo"><img src="fond5s.jpg.jpeg" alt="Avant carrosserie 2"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond5.jpg.jpeg" alt="Après carrosserie 2"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Carrosserie</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="autre" data-aos="fade-up" data-aos-delay="120">
+        <div class="realisation-photo"><img src="fond8.jpg.png" alt="Avant capitonnage"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond8s.jpg.webp" alt="Après capitonnage"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Capitonnage</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="peinture" data-aos="fade-up">
+        <div class="realisation-photo"><img src="fond9.jpg.jpg" alt="Avant peinture 2"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond9s.jpg.jpg" alt="Après peinture 2"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Peinture</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="tolerie" data-aos="fade-up" data-aos-delay="60">
+        <div class="realisation-photo"><img src="fond7s.jpg.jpeg" alt="Avant tôlerie 2"><span class="realisation-etiquette avant">Avant</span></div>
+        <div class="realisation-photo"><img src="fond7.jpg.jpeg" alt="Après tôlerie 2"><span class="realisation-etiquette apres">Après</span><span class="realisation-badge">Tôlerie</span></div>
+      </div>
+      <div class="paire-realisation" data-categorie="lustrage" data-aos="fade-up" data-aos-delay="120">
+        <div class="realisation-photo"><img src="fond10.jpg.jpg" alt="Avant lustrage 2"><span class="realisation-etiquette avant"></span></div>
+        <div class="realisation-photo"><img src="fond10s.jpg.jpg" alt="Après lustrage 2"><span class="realisation-etiquette apres"></span><span class="realisation-badge">Lustrage</span></div>
+      </div>
+    </div>
+    <div class="galerie-pied" data-aos="fade-up">
+      <a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener" class="btn btn-primaire">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="apropos" id="apropos">
+  <div class="conteneur apropos-grille">
+    <div class="apropos-image" data-aos="fade-right">
+      <img src="fond2.jpg.png" alt="Équipe Garage Andranobevava au travail">
+      <div class="apropos-image-badge">
+        <span class="badge-icone">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 12V6L12 2Z" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <div>
+          <strong>+10 ans de confiance</strong>
+          <span>Andranobevava, Antananarivo</span>
+        </div>
+      </div>
+    </div>
+    <div class="apropos-texte">
+      <p class="eyebrow" data-aos="fade-up">À propos de nous</p>
+      <h2 class="titre-section" data-aos="fade-up" data-aos-delay="80" style="text-align:left; font-size: clamp(1.5rem, 3.6vw, 2rem);">
+        Garage Andranobevava,<br>votre partenaire carrosserie depuis plus de 10 ans
+      </h2>
+      <p class="description" data-aos="fade-up" data-aos-delay="140">
+        Fondé à Andranobevava, notre garage est devenu une référence incontournable à Antananarivo pour la carrosserie, la peinture et l'entretien automobile. Nous mettons tout notre savoir-faire à votre service pour des travaux rapides, soignés et garantis.
+      </p>
+      <p class="description" data-aos="fade-up" data-aos-delay="180" style="margin-top:-1rem;">
+        Que ce soit pour une petite retouche ou une réfection complète, chaque véhicule est traité avec le même niveau d'exigence. Notre équipe qualifiée maîtrise l'ensemble de la chaîne de réparation : tôlerie, carrosserie, peinture, électricité auto, capitonnage et bien plus.
+      </p>
+      <a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener" class="btn btn-primaire" data-aos="fade-up" data-aos-delay="220">Prendre contact</a>
+    </div>
+  </div>
+  <div class="conteneur">
+    <div class="apropos-stats" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat-carte"><strong class="stat-nombre" data-cible="10" data-prefixe="+" data-suffixe=" ans">0</strong><span>Ans d'expérience</span></div>
+      <div class="stat-carte"><strong class="stat-nombre" data-cible="2500" data-prefixe="+">0</strong><span>Véhicules réparés</span></div>
+      <div class="stat-carte"><strong class="stat-nombre" data-cible="1000" data-prefixe="+">0</strong><span>Clients satisfaits</span></div>
+      <div class="stat-carte"><strong class="stat-nombre" data-cible="100" data-suffixe="%">0</strong><span>Travail garanti</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="apropos-histoire" style="background: var(--blanc); padding-block: var(--espace-xl);">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Notre histoire</p>
+      <h2 class="titre-section">De l'atelier au garage de référence</h2>
+      <p class="sous-titre-section">Plus de 10 ans de passion, de travail et d'excellence à Antananarivo.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-annee">2012</div>
+        <div class="timeline-point">
+          <div class="cercle"><svg viewBox="0 0 24 24" fill="none"><path d="M3 9.5L12 4L21 9.5V20C21 20.6 20.6 21 20 21H4C3.4 21 3 20.6 3 20V9.5Z" stroke="#000" stroke-width="2"/></svg></div>
+          <span class="timeline-annee-mobile">2012</span>
+        </div>
+        <div class="timeline-contenu"><h4>Les débuts</h4><p>Ouverture du premier atelier à Andranobevava avec une petite équipe passionnée par la carrosserie automobile.</p></div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="80">
+        <div class="timeline-annee">2016</div>
+        <div class="timeline-point">
+          <div class="cercle"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <span class="timeline-annee-mobile">2016</span>
+        </div>
+        <div class="timeline-contenu"><h4>Première expansion</h4><p>Agrandissement de l'atelier, acquisition de nouveaux équipements et recrutement de techniciens spécialisés en peinture.</p></div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="160">
+        <div class="timeline-annee">2019</div>
+        <div class="timeline-point">
+          <div class="cercle"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#000" stroke-width="2"/><path d="M7 21V13H17V21" stroke="#000" stroke-width="2"/></svg></div>
+          <span class="timeline-annee-mobile">2019</span>
+        </div>
+        <div class="timeline-contenu"><h4>Cabine de peinture professionnelle</h4><p>Installation d'une cabine de peinture aux normes professionnelles, proposée aussi en location pour les carrossiers indépendants.</p></div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="240">
+        <div class="timeline-annee">2023</div>
+        <div class="timeline-point">
+          <div class="cercle"><svg viewBox="0 0 24 24" fill="none"><path d="M9 12L11 14L15 10M21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12Z" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <span class="timeline-annee-mobile">2023</span>
+        </div>
+        <div class="timeline-contenu"><h4>+2 500 véhicules réparés</h4><p>Un cap symbolique franchi : plus de 2 500 véhicules remis en état, et une réputation solidement établie à Antananarivo.</p></div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="320">
+        <div class="timeline-annee">Aujourd'hui</div>
+        <div class="timeline-point">
+          <div class="cercle"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <span class="timeline-annee-mobile">Auj.</span>
+        </div>
+        <div class="timeline-contenu"><h4>Toujours plus loin</h4><p>Service complet, équipe agrandie, technologie moderne. Le garage Andranobevava continue d'évoluer pour vous servir mieux chaque jour.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ÉQUIPE -->
+<section class="equipe-section" id="equipe">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Notre équipe</p>
+      <h2 class="titre-section">Des professionnels à votre service</h2>
+      <p class="sous-titre-section">Une équipe passionnée, formée et expérimentée, prête à prendre soin de votre véhicule.</p>
+    </div>
+    <div class="grille-equipe">
+      <div class="carte-membre" data-aos="fade-up" data-aos-delay="0">
+        <div class="membre-avatar initiales">MR</div>
+        <h4>DOVA</h4>
+        <p class="role">Chef d'atelier</p>
+        <p>15 ans d'expérience en carrosserie et tôlerie. Spécialiste des réparations complexes.</p>
+      </div>
+      <div class="carte-membre" data-aos="fade-up" data-aos-delay="80">
+        <div class="membre-avatar initiales">PA</div>
+        <h4></h4>
+        <p class="role">Peintre automobile</p>
+        <p>Application de peinture bicouche et retouches invisibles. Œil affûté pour la couleur.</p>
+      </div>
+      <div class="carte-membre" data-aos="fade-up" data-aos-delay="160">
+        <div class="membre-avatar initiales">EA</div>
+        <h4></h4>
+        <p class="role">Électricien automobile</p>
+        <p>Diagnostic électronique et réparation électrique sur tous types de véhicules modernes.</p>
+      </div>
+      <div class="carte-membre" data-aos="fade-up" data-aos-delay="240">
+        <div class="membre-avatar initiales">CF</div>
+        <h4></h4>
+        <p class="role">Capitonneur & finitions</p>
+        <p>Habillage intérieur, sellerie et pose de protections de carrosserie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="valeurs-section">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Nos valeurs</p>
+      <h2 class="titre-section">Ce qui nous distingue</h2>
+      <p class="sous-titre-section">Les principes qui guident chaque intervention dans notre atelier.</p>
+    </div>
+    <div class="grille-valeurs">
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="0">
+        <span class="numero">01</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M9 12L11 14L15 10M21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12Z" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Qualité garantie</h3>
+        <p>Chaque réparation est contrôlée avant restitution. Nous ne rendons un véhicule que lorsqu'il est parfait.</p>
+      </div>
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="80">
+        <span class="numero">02</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#000" stroke-width="2"/><path d="M12 7V12L15 14" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Rapidité d'exécution</h3>
+        <p>Nous respectons les délais annoncés. Votre temps est précieux, notre organisation aussi.</p>
+      </div>
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="160">
+        <span class="numero">03</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 12V6L12 2Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Honnêteté & transparence</h3>
+        <p>Devis clair, sans surprise. Nous vous expliquons chaque intervention avant de commencer.</p>
+      </div>
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="0">
+        <span class="numero">04</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Expertise technique</h3>
+        <p>Notre équipe se forme continuellement aux dernières techniques et technologies automobiles.</p>
+      </div>
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="80">
+        <span class="numero">05</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="#000" stroke-width="2"/><path d="M3 20C3 16.5 5.5 14 9 14S15 16.5 15 20" stroke="#000" stroke-width="2" stroke-linecap="round"/><path d="M15 8C15 9.5 14.3 10.8 13.2 11.6M17 20C17 17.2 15.8 14.9 14 13.6" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Service client</h3>
+        <p>Accueil chaleureux, écoute attentive, suivi personnalisé. Votre satisfaction est notre priorité.</p>
+      </div>
+      <div class="carte-valeur" data-aos="fade-up" data-aos-delay="160">
+        <span class="numero">06</span>
+        <div class="valeur-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Réputation locale</h3>
+        <p>Plus de 1 000 clients satisfaits à Antananarivo. Notre meilleure publicité, c'est votre bouche-à-oreille.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="temoignages" id="temoignages">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Témoignages</p>
+      <h2 class="titre-section" data-aos="fade-up" data-aos-delay="80">Ce que nos clients disent de nous</h2>
+    </div>
+    <div class="grille-temoignages">
+      <div class="carte-temoignage" data-aos="fade-up" data-aos-delay="0">
+        <div class="etoiles">
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="texte-avis">« Travail rapide et professionnel. Ma voiture est comme neuve ! Je recommande sans hésiter. »</p>
+        <div class="temoignage-auteur"><span class="temoignage-avatar">KB</span><strong>Karim B.</strong></div>
+      </div>
+      <div class="carte-temoignage" data-aos="fade-up" data-aos-delay="80">
+        <div class="etoiles">
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="texte-avis">« Équipe très sérieuse, accueil chaleureux et travail impeccable. Mon pare-chocs est comme neuf. »</p>
+        <div class="temoignage-auteur"><span class="temoignage-avatar">SM</span><strong>Sofia M.</strong></div>
+      </div>
+      <div class="carte-temoignage" data-aos="fade-up" data-aos-delay="160">
+        <div class="etoiles">
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--ambre)"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg>
+        </div>
+        <p class="texte-avis">« Je recommande à 100 %. Meilleur garage d'Antananarivo. Prix honnête, résultat parfait. »</p>
+        <div class="temoignage-auteur"><span class="temoignage-avatar">YA</span><strong>Yassine A.</strong></div>
+      </div>
+    </div>
+    <div class="temoignages-pied" data-aos="fade-up">
+      <a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20laisser%20un%20avis." target="_blank" rel="noopener" class="btn btn-blanc">Nous laisser un avis</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="conteneur">
+    <div class="entete-section" data-aos="fade-up">
+      <p class="eyebrow">Contact</p>
+      <h2 class="titre-section" data-aos="fade-up" data-aos-delay="80">Contactez-nous</h2>
+      <p class="sous-titre-section" data-aos="fade-up" data-aos-delay="140">Appelez-nous, envoyez un message WhatsApp ou venez directement nous voir à Andranobevava.</p>
+    </div>
+
+    <div class="contact-grille-simple">
+      <!-- Colonne gauche -->
+      <div style="display: flex; flex-direction: column; gap: 1.2rem;" data-aos="fade-right">
+        <div class="contact-carte-bloc">
+          <h3>Nos coordonnées</h3>
+          <p class="intro">Nous sommes disponibles du lundi au samedi pour répondre à toutes vos questions.</p>
+          <div class="contact-infos">
+            <div class="info-item">
+              <span class="info-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M3 5C3 4 4 3 5 3H8L10 8L7.5 9.5C8.5 12 11 14.5 13.5 15.5L15 13L20 15V18C20 19 19 20 18 20C10 20 3 13 3 5Z" stroke="#5B4FE8" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+              <div><strong>Téléphone</strong><a href="tel:+261349740063">+261 34 97 400 63</a></div>
+            </div>
+            <div class="info-item">
+              <span class="info-icone">
+                <!-- WhatsApp icon -->
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z" stroke="#25d366" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+              <div>
+                <strong>WhatsApp</strong>
+                <a href="https://wa.me/261328220830?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener">+261 32 82 208 30</a>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icone"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#5B4FE8" stroke-width="1.8"/><path d="M3 7L12 13L21 7" stroke="#5B4FE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><strong>Email</strong><a href="mailto:contact@garage-andranobevava.mg">garage.andranobevava@gmail.com</a></div>
+            </div>
+            <div class="info-item">
+              <span class="info-icone"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 20 14.5 20 9.5C20 5.36 16.64 2 12.5 2C8.36 2 5 5.36 5 9.5C5 14.5 12 21 12 21Z" stroke="#5B4FE8" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12.5" cy="9.5" r="2.5" stroke="#5B4FE8" stroke-width="1.8"/></svg></span>
+              <div><strong>Adresse</strong><p>Andranobevava, Antananarivo, Madagascar</p></div>
+            </div>
+          </div>
+          <p style="font-size:0.82rem; font-weight:700; color:var(--bleu-nuit); margin-bottom:0.6rem;">Horaires d'ouverture</p>
+          <div class="horaires-grille">
+            <div class="horaire-jour"><span class="jour">Lundi – Vendredi</span><span class="heure">08:00 – 17:00</span></div>
+            <div class="horaire-jour"><span class="jour">Samedi</span><span class="heure">08:00 – 15:00</span></div>
+            <div class="horaire-jour ferme"><span class="jour">Dimanche</span><span class="heure">Fermé</span></div>
+            <div class="horaire-jour"><span class="jour">Jours fériés</span><span class="heure">Sur RDV</span></div>
+          </div>
+        </div>
+
+        <!-- CTA WhatsApp -->
+        <a href="https://wa.me/261328220830?text=Bonjour,%20je%20voudrais%20un%20devis%20pour%20mon%20v%C3%A9hicule." target="_blank" rel="noopener" class="whatsapp-cta-bloc" data-aos="fade-up">
+          <span class="whatsapp-icone">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z" stroke="#fff" stroke-width="2" stroke-linejoin="round" fill="#fff" fill-opacity="0.15"/></svg>
+          </span>
+          <div>
+            <strong>Écrire sur WhatsApp</strong>
+            <span>Réponse rapide — devis gratuit sous 24h</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Colonne droite : carte OSM centrée sur Andranobevava -->
+      <div data-aos="fade-left">
+        <div class="contact-carte-bloc" style="height: 100%; display: flex; flex-direction: column;">
+          <h3>Nous trouver</h3>
+          <p class="intro">Andranobevava, Antananarivo — venez nous rendre visite !</p>
+          <div class="contact-map" style="flex: 1; aspect-ratio: unset; min-height: 380px;">
+         <!--
+              Coordonnées réelles : Rue Andriamanantena Gaston, Antananarivo
+              Lat: -18.8843  Long: 47.5405
+            -->
+            <!-- MODAL CHARGEMENT -->
+            <div class="modal-chargement" id="modalChargement">
+              <div class="spinner"></div>
+            </div>
+
+            <iframe
+              id="mapFrame"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=47.535%2C-18.890%2C47.546%2C-18.878&layer=mapnik&marker=-18.882107062440973%2C47.541827471405895"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Localisation du Garage Andranobevava - Rue Andriamanantena Gaston, Antananarivo"
+              style="width:100%;height:100%;border:0;">
+            </iframe>
+          </div>
+          <button id="itineraireBtn"
+             style="display:inline-flex;align-items:center;gap:0.4em;margin-top:0.8rem;font-size:0.82rem;color:var(--indigo-fonce);font-weight:600;background:none;border:none;cursor:pointer;padding:0;transition:color 0.3s ease;"
+             onmouseover="this.style.color='var(--indigo)'"
+             onmouseout="this.style.color='var(--indigo-fonce)'">
+            <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;"><path d="M12 21C12 21 20 14.5 20 9.5C20 5.36 16.64 2 12.5 2C8.36 2 5 5.36 5 9.5C5 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12.5" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+            Itinéraire depuis ma position
+          </button>
+
+          <script>
+            // Coordonnées du Garage Andranobevava - Rue Andriamanantena Gaston
+            const GARAGE_LAT = -18.882107062440973;
+            const GARAGE_LON = 47.541827471405895;
+            const GARAGE_NAME = "Garage Andranobevava";
+            const GARAGE_ADDRESS = "Rue Andriamanantena Gaston, Antananarivo, Madagascar";
+
+            const itineraireBtn = document.getElementById('itineraireBtn');
+            const modalChargement = document.getElementById('modalChargement');
+            const mapFrame = document.getElementById('mapFrame');
+
+            itineraireBtn.addEventListener('click', function() {
+              modalChargement.classList.add('actif');
+
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLon = position.coords.longitude;
+                    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${GARAGE_LAT},${GARAGE_LON}&travelmode=driving`;
+                    modalChargement.classList.remove('actif');
+                    window.open(googleMapsUrl, '_blank');
+                    
+                    setTimeout(() => {
+                      mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${GARAGE_LON-0.01},${GARAGE_LAT-0.005},${GARAGE_LON+0.01},${GARAGE_LAT+0.005}&layer=mapnik&marker=${GARAGE_LAT},${GARAGE_LON}`;
+                    }, 500);
+                  },
+                  function(error) {
+                    modalChargement.classList.remove('actif');
+                    let message = 'Erreur de géolocalisation.\n\n';
+                    switch(error.code) {
+                      case error.PERMISSION_DENIED:
+                        message += 'Vous avez refusé l\'accès à votre position.\n\nOuvrir dans Google Maps ?';
+                        break;
+                      case error.POSITION_UNAVAILABLE:
+                        message += 'Votre position n\'est pas disponible.\n\nOuvrir dans Google Maps ?';
+                        break;
+                      case error.TIMEOUT:
+                        message += 'La localisation a expiré.\n\nOuvrir dans Google Maps ?';
+                        break;
+                      default:
+                        message += 'Une erreur est survenue.\n\nOuvrir dans Google Maps ?';
+                    }
+                    if (confirm(message)) {
+                      const googleMapsUrl = `https://www.google.com/maps/search/${GARAGE_NAME}/@${GARAGE_LAT},${GARAGE_LON},16z`;
+                      window.open(googleMapsUrl, '_blank');
+                    }
+                  },
+                  { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+              } else {
+                modalChargement.classList.remove('actif');
+                alert('Géolocalisation non supportée.\n\nOuverture de Google Maps...');
+                const googleMapsUrl = `https://www.google.com/maps/search/${GARAGE_NAME}/@${GARAGE_LAT},${GARAGE_LON},16z`;
+                window.open(googleMapsUrl, '_blank');
+              }
+            });
+          </script>
+          </button>
+
+          <script>
+           
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="conteneur">
+    <div class="footer-haut">
+      <div class="footer-marque">
+        <a href="#accueil" class="logo-zone">
+          <span class="logo-icone"><img src="fond.jpg.jpg" alt="Logo"></span>
+          <span class="logo-texte">Garage D'andranobevava<span class="logo-sous">Carrosserie & peinture</span></span>
+        </a>
+        <p>Tôlerie, carrosserie, peinture et entretien automobile à Antananarivo. Un savoir-faire de confiance depuis plus de 10 ans.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 9H17V6H14C12.34 6 11 7.34 11 9V11H9V14H11V20H14V14H16.5L17 11H14V9.5C14 9.22 14.22 9 14 9Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>
+          </a>
+          <a href="https://wa.me/261328220830" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-colonne">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#realisations">Galerie</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-colonne">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Carrosserie & tôlerie</a></li>
+          <li><a href="#services">Peinture & lustrage</a></li>
+          <li><a href="#services">Réparation plastique</a></li>
+          <li><a href="#services">Électricité auto</a></li>
+          <li><a href="#services">Capitonnage</a></li>
+          <li><a href="#services">Location de salle</a></li>
+        </ul>
+      </div>
+      <div class="footer-colonne">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+261349740063">+261 34 97 400 63</a></li>
+          <li><a href="https://wa.me/261 0328220830" target="_blank">WhatsApp</a></li>
+          <li><a href="garage.andranobevava@gmail.cpm">garage.andranobevava@gmail.com</a></li>
+          <li><a href="#contact">Andranobevava, Antananarivo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bas">
+      <span>© <span id="anneeCourante">2026</span> Garage Andranobevava. Tous droits réservés.</span>
+      <span>Site conçu avec soin pour notre clientèle.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bouton WhatsApp flottant -->
+<a href="https://wa.me/261349740063?text=Bonjour,%20je%20voudrais%20un%20devis." target="_blank" rel="noopener" class="btn-whatsapp-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M3 21L4.5 16.5C3.6 15 3 13.3 3 11.5C3 6.8 7 3 12 3C17 3 21 6.8 21 11.5C21 16.2 17 20 12 20C10.4 20 8.9 19.6 7.6 18.9L3 21Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+</a>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script>
+  // ── AOS ──
+  AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 40, disable: 'mobile' });
+
+  // ── Active nav bas selon section ──
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-bas-item[data-section]');
+  function majNavBas() {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navItems.forEach(item => { item.classList.toggle('actif', item.dataset.section === current); });
+  }
+  window.addEventListener('scroll', majNavBas, { passive: true });
+  majNavBas();
+
+  // ── GSAP hero ──
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth < 980;
+
+  gsap.fromTo('.hero-fond-photo img',
+    { opacity: 0, scale: reduceMotion ? 1.08 : 1.14 },
+    { opacity: 1, scale: 1.08, duration: reduceMotion ? 0.5 : 2, ease: 'power2.out' }
+  );
+
+  if (!reduceMotion) {
+    // Texte hero — animation desktop seulement (mobile = déjà visible en CSS)
+    if (!isMobile) {
+      // Réinitialiser l'état initial pour l'animation GSAP sur desktop
+      gsap.set('.hero-texte-direct [data-anim]', { opacity: 0, y: 20 });
+      gsap.to('.hero-texte-direct [data-anim]', {
+        opacity: 1, y: 0, duration: 0.7, stagger: 0.11, delay: 0.4, ease: 'power2.out'
+      });
+      // Cartes stats desktop
+      gsap.set('.colonne-visuelle [data-anim]', { opacity: 0, y: 28 });
+      gsap.to('.colonne-visuelle [data-anim]', {
+        opacity: 1, y: 0, duration: 0.7, stagger: 0.12, delay: 0.6, ease: 'power2.out'
+      });
+      gsap.fromTo('.scroll-indicateur', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 1.4 });
+    }
+
+    // Parallaxe souris desktop
+    if (window.matchMedia('(hover: hover) and (min-width: 980px)').matches) {
+      document.querySelectorAll('.colonne-visuelle [data-depth]').forEach(carte => {
+        document.addEventListener('mousemove', (e) => {
+          const d = parseFloat(carte.dataset.depth);
+          gsap.to(carte, {
+            x: (e.clientX / window.innerWidth - 0.5) * d * 6,
+            y: (e.clientY / window.innerHeight - 0.5) * d * 6,
+            duration: 1.2, ease: 'power2.out'
+          });
+        });
+      });
+    }
+
+    // Parallaxe fond hero au scroll
+    window.addEventListener('scroll', () => {
+      gsap.to('.hero-fond-photo img', { y: window.scrollY * 0.25, ease: 'none', duration: 0 });
+    }, { passive: true });
+
+    // Timeline scroll
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+      gsap.from(item, {
+        scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, x: i % 2 === 0 ? -30 : 30, duration: 0.6, ease: 'power2.out'
+      });
+    });
+
+    // Hover cartes valeur
+    document.querySelectorAll('.carte-valeur').forEach(carte => {
+      carte.addEventListener('mouseenter', () => gsap.to(carte, { scale: 1.02, duration: 0.3, ease: 'power2.out' }));
+      carte.addEventListener('mouseleave', () => gsap.to(carte, { scale: 1, duration: 0.3, ease: 'power2.out' }));
+    });
+  }
+
+  // ── Compteurs animés ──
+  const nombresStats = document.querySelectorAll('.stat-nombre');
+  function animerCompteur(el) {
+    const cible = parseInt(el.dataset.cible, 10);
+    const prefixe = el.dataset.prefixe || '';
+    const suffixe = el.dataset.suffixe || '';
+    const debut = performance.now();
+    function step(now) {
+      const p = Math.min((now - debut) / 1400, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefixe + Math.floor(eased * cible) + suffixe;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = prefixe + cible + suffixe;
+    }
+    requestAnimationFrame(step);
+  }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animerCompteur(e.target); obs.unobserve(e.target); } });
+  }, { threshold: 0.4 });
+  nombresStats.forEach(n => obs.observe(n));
+
+  // ── Filtres galerie ──
+  document.querySelectorAll('.filtre-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filtre;
+      document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('actif'));
+      btn.classList.add('actif');
+      document.querySelectorAll('.paire-realisation').forEach(p => {
+        p.classList.toggle('cachee', !(f === 'tous' || p.dataset.categorie === f));
+      });
+    });
+  });
+
+  // ── Année footer ──
+  document.getElementById('anneeCourante').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
